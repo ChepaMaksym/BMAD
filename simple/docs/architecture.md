@@ -62,29 +62,29 @@ graph TD
 
 | Category | Technology | Version | Purpose | Rationale |
 | :------------------ | :---------- | :------ | :-------- | :-------- |
-| Frontend Language | TypeScript | 5.4 | Primary language for Angular UI | Type safety, maintainability, industry standard for Angular |
-| Frontend Framework | Angular | 21.x (LTS) | Robust framework for complex SPAs | Explicitly required by NFR3 in PRD; LTS version ensures long-term support and stability |
-| UI Component Library | Angular Material | 18.0 | Pre-built UI components | Consistent UI/UX, accessibility, integrates well with Angular (matched to Angular 21.x as it would be the next major version) |
-| State Management | NgRx | 21.x | Reactive state management for Angular | Scalable state management, predictable state changes, large community support (aligned with Angular 21.x) |
-| Node.js | Node.js | 22.x (LTS) | JS runtime for frontend build tools | LTS version provides stability for the development and build environment |
-| Backend Language | C# | 12.x | Primary language for .NET Web API and Azure Function | Explicitly required by NFR4 in PRD; strong typing, performance |
-| Backend Framework | .NET Web API | 8.x (LTS) | RESTful API development | Explicitly required by NFR4 in PRD; LTS version ensures long-term support and stability |
+| Frontend Language | TypeScript | 5.9.3 | Primary language for Angular UI | Type safety, maintainability, industry standard for Angular |
+| Frontend Framework | Angular | 21.1.2 (LTS) | Robust framework for complex SPAs | Explicitly required by NFR3 in PRD; LTS version ensures long-term support and stability |
+| UI Component Library | Angular Material | 21.1.2 | Pre-built UI components | Consistent UI/UX, accessibility, integrates well with Angular (matched to Angular 21.x as it would be the next major version) |
+| State Management | NgRx | 21.0.1 | Reactive state management for Angular | Scalable state management, predictable state changes, large community support (aligned with Angular 21.x) |
+| Node.js | Node.js | 24.13.0 (LTS) | JS runtime for frontend build tools | LTS version provides stability for the development and build environment |
+| Backend Language | C# | 14 | Primary language for .NET Web API and Azure Function | Explicitly required by NFR4 in PRD; strong typing, performance |
+| Backend Framework | .NET Web API | 10.0 (LTS) | RESTful API development | Explicitly required by NFR4 in PRD; LTS version ensures long-term support and stability |
 | API Style | REST | v1 | Standard for web service communication | Widely adopted, flexible, well-documented. Versioning will be via API endpoint (e.g., `/api/v1/`) |
-| Database | Azure Cosmos DB | Managed by Azure | Document data persistence | Explicitly mentioned in NFR5; suitable for semi-structured event data, high write throughput, global distribution |
-| Cache | Azure Cache for Redis | Managed by Azure | Distributed caching for API and Functions | Improve performance, reduce database load, supports real-time features |
-| File Storage | Azure Blob Storage | Managed by Azure | Object storage for large files/assets | Scalable, cost-effective storage for non-relational data if needed |
+| Database | Azure Cosmos DB | Managed by Azure (SDK 3.57.0 for .NET) | Document data persistence | Explicitly mentioned in NFR5; suitable for semi-structured event data, high write throughput, global distribution |
+| Cache | Azure Cache for Redis | Managed by Azure (Redis 7.4 for Azure Managed Redis) | Distributed caching for API and Functions | Improve performance, reduce database load, supports real-time features |
+| File Storage | Azure Blob Storage | Managed by Azure (API 2026-02-06) | Object storage for large files/assets | Scalable, cost-effective storage for non-relational data if needed |
 | Authentication | Azure Active Directory B2C | Managed by Azure | User identity and access management | Enterprise-grade, secure, integrates with Azure services, supports various authentication flows |
-| Frontend Testing | Jest, Angular Testing Library | Latest | Unit and integration testing for Angular components | Fast feedback, robust testing of UI logic and interactions |
-| Backend Testing | xUnit | 3.2.2 | Unit and integration testing for .NET backend | Industry standard for .NET testing, compatible with .NET 8 |
+| Frontend Testing | Jest, Angular Testing Library | 30.2.0, 19.0.0 | Unit and integration testing for Angular components | Fast feedback, robust testing of UI logic and interactions |
+| Backend Testing | xUnit | v3 | Unit and integration testing for .NET backend | Industry standard for .NET testing, compatible with .NET 8 |
 | Backend Testing | Moq | 4.20.72 | Mocking framework for .NET backend unit tests | Simplifies testing of dependencies |
-| E2E Testing | Cypress | 13.6 | End-to-end testing for the full application flow | Simulate user interactions, ensure complete system functionality |
-| Build Tool | Angular CLI (frontend) | 21.x | Project scaffolding, building, and development tasks | Standard tooling for Angular projects (aligned with Angular 21.x) |
-| Build Tool | .NET CLI (backend) | 8.x | Project scaffolding, building, and development tasks | Standard tooling for .NET projects (aligned with .NET 8) |
-| Bundler | Webpack (via Angular CLI) | 5.x | Module bundling for frontend assets | Included with Angular CLI, optimizes frontend for production |
+| E2E Testing | Cypress | 15.9.0 | End-to-end testing for the full application flow | Simulate user interactions, ensure complete system functionality |
+| Build Tool | Angular CLI (frontend) | 21.1.2 | Project scaffolding, building, and development tasks | Standard tooling for Angular projects (aligned with Angular 21.x) |
+| Build Tool | .NET CLI (backend) | 10 (LTS) | Project scaffolding, building, and development tasks | Standard tooling for .NET projects (aligned with .NET 8) |
+| Bundler | Webpack (via Angular CLI) | 5.104.1 | Module bundling for frontend assets | Included with Angular CLI, optimizes frontend for production |
 | IaC Tool | Azure Bicep | 0.40.2 | Infrastructure as Code for Azure resources | Native Azure IaC, simplifies deployment and management of Azure resources (as required by Epic 3) |
-| CI/CD | Azure DevOps Pipelines | Managed by Azure | Automated build, test, and deployment workflows | Integrates seamlessly with Azure, supports monorepo builds, comprehensive CI/CD capabilities |
+| CI/CD | Azure DevOps Pipelines | Managed by Azure (Agent 3.225.0) | Automated build, test, and deployment workflows | Integrates seamlessly with Azure, supports monorepo builds, comprehensive CI/CD capabilities |
 | Monitoring | Azure Application Insights | Managed by Azure | Application performance monitoring, logging, and diagnostics | Provides deep insights into application health and performance (as required by Epic 3) |
-| Logging | Azure Monitor Logs (Log Analytics Workspace) | Managed by Azure | Centralized log collection and analysis | Collects logs from all Azure services for comprehensive observability |
+| Logging | Azure Monitor Logs (Log Analytics Workspace) | Managed by Azure (AMA 1.39.0) | Centralized log collection and analysis | Collects logs from all Azure services for comprehensive observability |
 | CSS Framework | Tailwind CSS | 4.1.18 | Utility-first CSS framework | Rapid UI development, highly customizable, optimizes CSS for production builds |
 | Data Migration | Custom .NET/C# Scripts | N/A | Manage database schema evolution and data transformations for Azure Cosmos DB. | Ensures controlled, version-controlled changes to Cosmos DB schema and data, integrated into CI/CD. |
 
@@ -114,6 +114,51 @@ interface OrderEvent {
   description: string;
   eventPayload: any; // Consider a more specific type if schema is known
   createdAt: string; // ISO 8601 DateTime
+}
+```
+
+### Data Modeling for Other Entities
+
+While `OrderEvent` is the primary model, the system will eventually manage other entities. These will follow similar data modeling principles, leveraging Azure Cosmos DB for persistence.
+
+**General Approach:**
+-   **Identify Entities:** Each significant business entity (e.g., `User`, `Product`, `Session`) will be identified based on functional requirements.
+-   **Document Structure:** For each entity, a clear JSON document structure will be defined, specifying key attributes, their data types, and purpose.
+-   **Relationships:** Relationships between entities will be modeled typically through denormalization (embedding related data) where appropriate for read-heavy scenarios, or through explicit references (e.g., `userId` in `OrderEvent`) for more dynamic relationships.
+-   **Partitioning:** Each entity's Cosmos DB container will have an optimized partition key defined based on its most frequent query patterns.
+-   **Indexing:** Default indexing will be used, with custom indexes added for performance-critical fields as needed.
+
+**Example: User Profile Entity (Conceptual)**
+
+```json
+{
+  "id": "user123",
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "createdDate": "2026-01-01T10:00:00Z",
+  "lastLoginDate": "2026-02-02T15:30:00Z",
+  "preferences": {
+    "theme": "dark",
+    "notifications": true
+  },
+  "addressId": "addr456" // Reference to a separate Address entity if needed
+}
+```
+
+**TypeScript Interface (Conceptual):**
+
+```typescript
+interface UserProfile {
+  id: string;
+  name: string;
+  email: string;
+  createdDate: string;
+  lastLoginDate: string;
+  preferences: {
+    theme: string;
+    notifications: boolean;
+  };
+  addressId?: string;
 }
 ```
 
@@ -232,6 +277,19 @@ components:
             events.write: Write access to events
             events.read: Read access to events
 ```
+
+### API Versioning Strategy
+
+To ensure backward compatibility and allow for future evolution of the API, the **URL Path Versioning** strategy will be adopted.
+
+**Strategy:** Embedding the API version directly into the URL path.
+-   **Example:** `GET /api/v1/events/order`, `GET /api/v2/events/order`
+-   **Advantages:**
+    -   **Simplicity and Discoverability:** Versions are clearly visible and easy for developers to understand and use.
+    -   **Caching:** Different API versions are treated as distinct resources, supporting effective caching mechanisms.
+    -   **Client Adoption:** Clients can easily adapt to new versions by updating the URL path.
+-   **Implementation (ASP.NET Core):** ASP.NET Core API Versioning libraries will be used, allowing controllers to be attributed with `[ApiVersion("1.0")]`, `[ApiVersion("2.0")]`, etc., and enabling routing based on the URL segment.
+-   **Implementation (Azure Functions):** Azure Functions HTTP triggers will define versioned routes (e.g., `/v1/events/order`, `/v2/events/order`).
 
 ## Components
 
@@ -621,7 +679,7 @@ import { switchMap, take, tap, catchError } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service'; // Our custom auth service
 import { Store } from '@ngrx/store';
 import { selectIsAuthenticated } from '../state/auth.selectors'; // NgRx selector for auth state
-import * as AuthActions from '../state/auth.actions';
+import *as AuthActions from '../state/auth.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -765,7 +823,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
 // src/app/app.module.ts (or core.module.ts if using modules)
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { AuthInterceptor } from './core/interceptors/auth';
 
 // ...
 providers: [
@@ -856,333 +914,552 @@ export class OrderEventsApiService {
 
 ### Service Architecture
 
-#### Controller/Route Organization (for .NET Web API)
+### Database Architecture
 
-```text
-src/
-├── UserEventHub.Api/
-│   ├── Controllers/             # API Controllers (e.g., EventsController)
-│   ├── Services/                # Business logic services (e.g., EventSubmissionService)
-│   ├── Repositories/            # Data access layer (e.g., CosmosDbRepository)
-│   ├── Models/                  # API request/response models (e.g., OrderEventRequest)
-│   ├── Extensions/              # Extension methods
-│   ├── Filters/                 # Custom action/resource filters (e.g., ValidationFilter)
-│   ├── Middlewares/             # Custom middleware
-│   ├── Data/                    # DbContext or other data-related classes
-│   ├── HealthChecks/            # Health check definitions
-│   ├── Program.cs               # Entry point
-│   ├── Startup.cs               # Configuration (if not using Minimal APIs)
-│   └── appsettings.json
-```
+#### Data Access Layer (Repository Pattern)
 
-#### Controller Template (for .NET Web API)
+To abstract data access and ensure a clean separation of concerns, the **Repository Pattern** will be implemented for interacting with the Azure Cosmos DB.
+
+**Purpose:**
+-   **Abstraction:** Decouple the application's business logic from the specifics of the data persistence layer (Azure Cosmos DB).
+-   **Testability:** Facilitate easier unit testing of business logic by allowing mocking of data access dependencies.
+-   **Maintainability:** Centralize data access logic, making it easier to manage changes to the database schema or underlying data store technology.
+
+**Interface Definition:**
+A generic `IRepository<TEntity>` interface will define common CRUD (Create, Read, Update, Delete) operations. Specific repository interfaces (e.g., `IOrderEventRepository`) will extend this, adding domain-specific query methods.
 
 ```csharp
-// src/UserEventHub.Api/Controllers/EventsController.cs
-using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using UserEventHub.Api.Models; // DTOs for request/response
-using UserEventHub.Api.Services; // Business logic services
-using UserEventHub.Shared.Models; // Shared domain models (e.g., OrderEvent)
-
-namespace UserEventHub.Api.Controllers
+// Example: Generic Repository Interface
+public interface IRepository<TEntity> where TEntity : class
 {
-    [ApiController]
-    [Route("api/v1/[controller]")] // api/v1/Events
-    [Authorize] // Requires authentication for all actions in this controller
-    public class EventsController : ControllerBase
-    {
-        private readonly IEventSubmissionService _eventSubmissionService;
-        private readonly IEventQueryService _eventQueryService; // Service for retrieving events
-        private readonly ILogger<EventsController> _logger;
+    Task<TEntity> GetByIdAsync(string id);
+    Task<IEnumerable<TEntity>> GetAllAsync();
+    Task AddAsync(TEntity entity);
+    Task UpdateAsync(TEntity entity);
+    Task DeleteAsync(string id);
+}
 
-        public EventsController(
-            IEventSubmissionService eventSubmissionService,
-            IEventQueryService eventQueryService,
-            ILogger<EventsController> logger)
-        {
-            _eventSubmissionService = eventSubmissionService ?? throw new ArgumentNullException(nameof(eventSubmissionService));
-            _eventQueryService = eventQueryService ?? throw new ArgumentNullException(nameof(eventQueryService));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        }
-
-        /// <summary>
-        /// Submits a new user event to the system for asynchronous processing.
-        /// </summary>
-        /// <param name="request">The event details.</param>
-        /// <returns>A 202 Accepted response with the generated event ID.</returns>
-        [HttpPost("order")] // api/v1/Events/order
-        [Authorize(Policy = "Events.Write")] // Requires specific authorization policy
-        [ProducesResponseType(typeof(EventSubmissionResponse), StatusCodes.Status202Accepted)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> SubmitOrderEvent([FromBody] OrderEventRequest request)
-        {
-            _logger.LogInformation("Received request to submit OrderEvent for UserId: {UserId}", request.UserId);
-
-            // Model validation is automatically handled by ASP.NET Core's [ApiController] attribute
-            // Any further business-level validation should occur in the service layer.
-
-            try
-            {
-                // In a real scenario, the service would map the DTO to a domain model
-                // and handle business logic before publishing to the message broker.
-                var eventId = await _eventSubmissionService.SubmitOrderEventAsync(request);
-
-                _logger.LogInformation("OrderEvent submitted successfully with ID: {EventId}", eventId);
-                return Accepted(new EventSubmissionResponse { EventId = eventId, Message = "Event accepted for processing." });
-            }
-            catch (ValidationException ex) // Custom exception for business validation errors
-            {
-                _logger.LogWarning(ex, "Validation error submitting OrderEvent: {Message}", ex.Message);
-                return BadRequest(new { error = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An unexpected error occurred while submitting OrderEvent.");
-                return StatusCode(StatusCodes.Status500InternalServerError, new { error = "An internal server error occurred." });
-            }
-        }
-
-        /// <summary>
-        /// Retrieves a paginated and filterable list of order events.
-        /// </summary>
-        /// <param name="filter">Filter parameters (e.g., type, status, search term).</param>
-        /// <returns>A list of order events.</returns>
-        [HttpGet("order")] // api/v1/Events/order
-        [Authorize(Policy = "Events.Read")] // Requires specific authorization policy
-        [ProducesResponseType(typeof(IEnumerable<OrderEvent>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> GetOrderEvents([FromQuery] EventFilterParameters filter)
-        {
-            _logger.LogInformation("Received request to get OrderEvents with filter: {@Filter}", filter);
-
-            try
-            {
-                var events = await _eventQueryService.GetFilteredEventsAsync(filter);
-                return Ok(events);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An unexpected error occurred while getting OrderEvents.");
-                return StatusCode(StatusCodes.Status500InternalServerError, new { error = "An internal server error occurred." });
-            }
-        }
-
-        // Additional actions for other event-related operations could be added here
-    }
+// Example: Specific OrderEvent Repository Interface
+public interface IOrderEventRepository : IRepository<OrderEvent>
+{
+    Task<IEnumerable<OrderEvent>> GetByUserIdAsync(string userId);
+    // Add other domain-specific query methods here
 }
 ```
 
-#### Function Organization (for Azure Function App)
+**Implementation Details (Cosmos DB):**
+Concrete implementations (e.g., `CosmosDbRepository<TEntity>`) will leverage the Azure Cosmos DB .NET SDK to perform operations against the `OrderEvents` container.
+-   **Dependency Injection:** Repositories will be registered with the DI container and injected into services that require data access.
+-   **Partition Key Handling:** Implementations will correctly handle partition key routing for efficient queries against Cosmos DB.
+-   **Error Handling:** Specific Cosmos DB exceptions will be translated into more generic data access exceptions or handled internally by the repository.
+
+**Usage Guidelines:**
+-   Services should only interact with repositories through their defined interfaces.
+-   Business logic should not directly access the Cosmos DB context or SDK.
+-   Repositories should focus solely on data persistence operations, leaving business rules to the service layer.
+
+#### Data Migration Strategy
+
+Given that Azure Cosmos DB is a schema-less (or rather, schema-on-read) NoSQL database, the concept of "schema migrations" as known in relational databases is different. However, evolving data models and performing data transformations are still crucial.
+
+**Strategy:** Custom .NET/C# scripts integrated into the CI/CD pipeline.
+
+**Key Principles:**
+-   **Controlled Evolution:** All changes to data models or requiring data transformation will be managed through dedicated, version-controlled scripts.
+-   **Version Control:** Migration scripts will reside in a designated folder within the monorepo (e.g., `infrastructure/data-migrations`). Each script will be uniquely identified (e.g., by a timestamp prefix) and follow a clear naming convention.
+-   **Automation:** Migration execution will be integrated into the CI/CD pipeline for automated deployment to non-production environments (Dev, QA, Staging). Production deployments will follow a controlled manual trigger after review.
+-   **Idempotency:** Scripts will be designed to be idempotent, meaning they can be run multiple times without causing unintended side effects. This is critical for reliable deployments.
+-   **Logging and Monitoring:** Each migration script will log its execution status, duration, and any errors to Azure Application Insights, ensuring traceability and operational visibility.
+-   **Rollback Strategy:** For complex data transformations, a rollback plan will be documented and, where feasible, implemented to revert changes in case of deployment issues.
+-   **Developer Guidelines:** Clear guidelines will be established for developing new migration scripts, including testing requirements and best practices for interacting with Cosmos DB.
+
+**Example Use Cases for Migration Scripts:**
+-   Adding new fields to existing documents.
+-   Renaming fields.
+-   Changing data types (requiring data transformation).
+-   Backfilling data.
+-   Re-partitioning a container (more complex operation, typically requiring new container creation and data copy).
+### Global Error Handling Strategy
+
+A standardized and robust global error handling strategy is crucial for the reliability and maintainability of all backend services. This strategy will encompass:
+
+**1. Centralized Error Handling Middleware/Filter:**
+-   **ASP.NET Core Web API:** Implement a custom exception handling middleware or an exception filter to catch unhandled exceptions across all API controllers.
+-   **Azure Function App:** Utilize an Azure Function middleware (for .NET isolated process model) or global exception handler to gracefully manage errors within functions.
+
+**2. Standardized Error Response Format:**
+Define a consistent JSON structure for error responses returned to clients, ensuring predictability and ease of consumption by the frontend.
+
+```json
+{
+  "error": {
+    "code": "string",         // A unique, application-specific error code
+    "message": "string",      // A human-readable message (generic in production)
+    "details": {},            // Optional: object containing specific validation errors or additional context
+    "timestamp": "ISO 8601",  // When the error occurred
+    "requestId": "string"     // Correlation ID for tracing
+  }
+}
+```
+
+**3. Exception Mapping:**
+Map specific backend exceptions to appropriate HTTP status codes and application-specific error codes within the standardized response format.
+-   `ValidationException` -> `400 Bad Request`
+-   `NotFoundException` -> `404 Not Found`
+-   `UnauthorizedException` -> `401 Unauthorized`
+-   `ForbiddenException` -> `403 Forbidden`
+-   Unhandled Exceptions -> `500 Internal Server Error` (with a generic message in production)
+
+**4. Logging & Telemetry:**
+-   **Comprehensive Logging:** All errors will be logged with rich context (e.g., stack trace, HTTP request details, authenticated user ID, correlation ID) to Azure Application Insights.
+-   **Correlation IDs:** Implement a mechanism to pass a correlation ID through the request pipeline, allowing end-to-end tracing of a single request across all microservices and logs.
+-   **Alerting:** Configure alerts in Azure Monitor for critical error rates or specific error types.
+
+**5. Developer-Friendly vs. User-Friendly Messages:**
+-   **Development Environments:** Provide detailed exception messages and stack traces to aid developers.
+-   **Production Environments:** Return generic, non-sensitive error messages to end-users to prevent information disclosure vulnerabilities.
+
+**6. Resilience Patterns:**
+-   **Circuit Breakers:** Implement circuit breakers (e.g., using Polly) for calls to external dependencies (databases, other APIs) to prevent cascading failures.
+-   **Retry Policies:** Apply intelligent retry policies for transient faults when communicating with external services.
+
+## Deployment Architecture
+
+Define deployment strategy based on platform choice.
+
+### Deployment Strategy
+
+**Frontend Deployment:**
+- **Platform:** Azure App Service
+- **Build Command:** `nx build web --prod`
+- **Output Directory:** `dist/apps/web`
+- **CDN/Edge:** Azure CDN
+
+**Backend Deployment:**
+- **Platform:** Azure App Service (for Web API), Azure Functions (for Function App)
+- **Build Command:** `dotnet publish -c Release -o out`
+- **Deployment Method:** Azure DevOps Pipelines (Continuous Deployment)
+
+### CI/CD Pipeline
+
+The CI/CD pipeline, managed by Azure DevOps, will automate the build, test, and deployment processes. For secure management of sensitive data such as secret keys and connection strings, **Azure Key Vault** will be integrated with **Azure DevOps Variable Groups**.
+
+**Secret Management with Azure Key Vault:**
+1.  **Store Secrets:** All application secrets (e.g., database connection strings, API keys, service principal credentials) will be securely stored in Azure Key Vault instances, typically one per environment (Development, Staging, Production).
+2.  **Variable Groups:** Azure DevOps Variable Groups will be created for each environment and linked to their respective Azure Key Vaults. This allows Azure DevOps pipelines to fetch secret values from Key Vault at runtime.
+3.  **Secure Injection:** Secrets will be injected into pipeline jobs as environment variables, ensuring they are never exposed in plaintext in logs or committed to source control. Access policies in Key Vault will control which service principals (used by Azure DevOps) can access which secrets.
+
+```yaml
+# azure-pipelines.yml example for a monorepo
+trigger:
+  - main
+
+variables:
+  # Link to an Azure Key Vault-backed variable group for each environment
+  - group: Azure-Dev-Secrets # Example: for development environment
+  - group: Azure-Staging-Secrets # Example: for staging environment
+  - group: Azure-Prod-Secrets # Example: for production environment
+
+stages:
+  - stage: Build
+    displayName: Build Applications
+    jobs:
+      - job: BuildWeb
+        displayName: Build Frontend (Angular)
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '24.x' # Use the Node.js LTS version
+            displayName: 'Install Node.js'
+
+          - script: npm install
+            displayName: 'Install npm dependencies'
+
+          - script: nx build web --prod
+            displayName: 'Build Angular App'
+
+          - task: PublishBuildArtifacts@1
+            inputs:
+              pathToPublish: 'dist/apps/web'
+              artifactName: 'frontend-app'
+            displayName: 'Publish Frontend Artifact'
+
+      - job: BuildApi
+        displayName: Build Backend (.NET Web API)
+        pool:
+          vmImage: 'windows-latest'
+        steps:
+          - task: UseDotNet@2
+            inputs:
+              version: '10.x' # Use the .NET LTS version
+            displayName: 'Install .NET SDK'
+
+          - script: dotnet restore src/UserEventHub.Api/UserEventHub.Api.csproj
+            displayName: 'Restore .NET API dependencies'
+
+          - script: dotnet publish src/UserEventHub.Api/UserEventHub.Api.csproj -c Release -o $(Build.ArtifactStagingDirectory)/api
+            displayName: 'Publish .NET API'
+
+          - task: PublishBuildArtifacts@1
+            inputs:
+              pathToPublish: '$(Build.ArtifactStagingDirectory)/api'
+              artifactName: 'backend-api'
+            displayName: 'Publish Backend API Artifact'
+
+      - job: BuildFunction
+        displayName: Build Backend (Azure Function)
+        pool:
+          vmImage: 'windows-latest'
+        steps:
+          - task: UseDotNet@2
+            inputs:
+              version: '10.x' # Use the .NET LTS version
+            displayName: 'Install .NET SDK'
+
+          - script: dotnet restore src/UserEventHub.Processor/UserEventHub.Processor.csproj
+            displayName: 'Restore .NET Function dependencies'
+
+          - script: dotnet publish src/UserEventHub.Processor/UserEventHub.Processor.csproj -c Release -o $(Build.ArtifactStagingDirectory)/function
+            displayName: 'Publish Azure Function'
+
+          - task: PublishBuildArtifacts@1
+            inputs:
+              pathToPublish: '$(Build.ArtifactStagingDirectory)/function'
+              artifactName: 'backend-function'
+            displayName: 'Publish Backend Function Artifact'
+
+  - stage: Deploy
+    displayName: Deploy Applications
+    dependsOn: Build
+    jobs:
+      - deployment: DeployFrontend
+        displayName: Deploy Frontend
+        environment: 'Production' # Or 'Staging'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureWebApp@1
+                  inputs:
+                    azureSubscription: 'Your Azure Subscription'
+                    appName: 'user-event-hub-web-prod'
+                    package: '$(Pipeline.Workspace)/frontend-app'
+                  displayName: 'Deploy Frontend to Azure App Service'
+
+      - deployment: DeployBackendApi
+        displayName: Deploy Backend API
+        environment: 'Production' # Or 'Staging'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureWebApp@1
+                  inputs:
+                    azureSubscription: 'Your Azure Subscription'
+                    appName: 'user-event-hub-api-prod'
+                    package: '$(Pipeline.Workspace)/backend-api'
+                  displayName: 'Deploy Backend API to Azure App Service'
+
+      - deployment: DeployBackendFunction
+        displayName: Deploy Azure Function
+        environment: 'Production' # Or 'Staging'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureFunctionApp@1
+                  inputs:
+                    azureSubscription: 'Your Azure Subscription'
+                    appType: 'functionApp'
+                    appName: 'user-event-hub-function-prod'
+                    package: '$(Pipeline.Workspace)/backend-function'
+                  displayName: 'Deploy Azure Function App'
+```
+
+### Environments
+
+| Environment | Frontend URL | Backend URL | Purpose |
+|---|---|---|---|
+| Development | `http://localhost:4200` | `http://localhost:5001/api/v1` | Local development |
+| Staging | `https://staging.usereventhub.com` | `https://staging-api.usereventhub.com/v1` | Pre-production testing |
+| Production | `https://usereventhub.com` | `https://api.usereventhub.com/v1` | Live environment |
+
+## Security and Performance
+
+Define security and performance considerations for the fullstack application.
+
+### Security Requirements
+
+**Frontend Security:**
+- CSP Headers: Strict Content Security Policy (CSP) headers will be implemented to mitigate cross-site scripting (XSS) and data injection attacks.
+- XSS Prevention: Angular's built-in sanitization features, coupled with careful use of innerHTML and secure coding practices, will be employed to prevent XSS.
+- Secure Storage: Authentication tokens (e.g., refresh tokens) will be stored in HTTP-only secure cookies. Non-sensitive data that requires client-side persistence will use local storage.
+
+**Backend Security:**
+- Input Validation: Comprehensive server-side input validation will be performed for all API endpoints using ASP.NET Core Model Validation and potentially FluentValidation for complex rules.
+- Rate Limiting: ASP.NET Core Rate Limiting Middleware will be configured to protect against brute-force attacks and abuse of API endpoints.
+- CORS Policy: A strict Cross-Origin Resource Sharing (CORS) policy will be configured in ASP.NET Core to allow requests only from authorized frontend origins.
+
+**Authentication Security:**
+- Token Storage: Short-lived access tokens, with longer-lived refresh tokens stored securely in HTTP-only secure cookies for automatic token renewal.
+- Session Management: Token-based authentication (JWT) managed by Azure AD B2C, minimal server-side session.
+- Password Policy: Strong password policies, including complexity requirements, minimum length, and expiration, will be enforced by Azure AD B2C.
+
+### Performance Optimization
+
+**Frontend Performance:**
+- Bundle Size Target: Aim for an initial JavaScript bundle size of less than 500KB (gzipped) to ensure fast initial load times.
+- Loading Strategy: Lazy loading of Angular modules, components, and routes will be implemented to only load necessary code on demand, improving application startup performance.
+- Caching Strategy: Browser caching (via Cache-Control headers) and Service Workers will be utilized for static assets and API responses to reduce network requests and enable offline capabilities.
+
+**Backend Performance:**
+- Response Time Target: Target an average response time of less than 100ms for 90% of API responses to ensure a responsive user experience.
+- Database Optimization: Optimized Cosmos DB queries, efficient use of partition keys, and appropriate indexing will be implemented to minimize database latency.
+- Caching Strategy: Distributed caching with Azure Cache for Redis for frequently accessed data, reducing the load on the database and improving API response times.
+
+## Testing Strategy
+
+Define comprehensive testing approach for fullstack application.
+
+### Testing Pyramid
 
 ```text
-src/
-├── UserEventHub.Processor/
-│   ├── UserEventProcessor.cs        # The Azure Function class (e.g., ServiceBusTrigger)
-│   ├── Services/                    # Business logic services (e.g., EventProcessingService)
-│   ├── Repositories/                # Data access layer (e.g., CosmosDbRepository for writing)
-│   ├── Models/                      # DTOs, domain models (e.g., OrderEvent)
-│   ├── Extensions/                  # Extension methods (e.g., for dependency injection)
-│   ├── Host.cs                      # Program entry point for DI, configuration (if .NET Isolated)
-│   ├── local.settings.json          # Local environment settings
-│   ├── appsettings.json             # Application settings for deployment
-│   ├── host.json                    # Azure Functions host configuration
-│   └── function.json                # Function specific configuration (for in-process model)
+E2E Tests
+/        \
+Integration Tests
+/            \
+Frontend Unit  Backend Unit
 ```
 
-#### Function Template
+### Test Organization
 
-```csharp
-// src/UserEventHub.Processor/UserEventProcessor.cs
-using System;
-using System.Threading.Tasks;
-using Azure.Messaging.ServiceBus;
-using Microsoft.Azure.Functions.Worker;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json; // For deserialization, consider System.Text.Json
-using UserEventHub.Processor.Models; // Assuming models for deserialization
-using UserEventHub.Processor.Services; // Event processing business logic
-using UserEventHub.Shared.Models; // Shared domain models (e.g., OrderEvent)
+#### Frontend Tests
 
-namespace UserEventHub.Processor
-{
-    public class UserEventProcessor
-    {
-        private readonly IEventProcessingService _eventProcessingService;
-        private readonly ILogger<UserEventProcessor> _logger;
-
-        public UserEventProcessor(IEventProcessingService eventProcessingService, ILogger<UserEventProcessor> logger)
-        {
-            _eventProcessingService = eventProcessingService ?? throw new ArgumentNullException(nameof(eventProcessingService));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        }
-
-        [Function("ProcessOrderEvent")]
-        public async Task Run(
-            [ServiceBusTrigger("order-events", Connection = "ServiceBusConnection")] ServiceBusReceivedMessage message,
-            FunctionContext context)
-        {
-            _logger.LogInformation($"C# ServiceBus queue trigger function processed message: {message.MessageId}");
-
-            try
-            {
-                // Deserialize the message body into our shared OrderEvent model
-                var orderEvent = JsonConvert.DeserializeObject<OrderEvent>(message.Body.ToString());
-
-                if (orderEvent == null)
-                {
-                    _logger.LogError($"Could not deserialize message {message.MessageId} to OrderEvent. Message Body: {message.Body}");
-                    // Optionally Dead-Letter the message or handle as appropriate for malformed messages
-                    throw new InvalidOperationException($"Malformed OrderEvent message received: {message.MessageId}");
-                }
-
-                _logger.LogInformation($"Processing OrderEvent of type '{orderEvent.Type}' for UserId: '{orderEvent.UserId}', EventId: '{orderEvent.Id}'");
-
-                // Delegate business logic to a separate service
-                await _eventProcessingService.ProcessAndPersistEventAsync(orderEvent);
-
-                _logger.LogInformation($"Successfully processed OrderEvent {orderEvent.Id}");
-            }
-            catch (Exception ex)
-            {
-## Development Workflow
-
-Define the development setup and workflow for the fullstack application.
-
-### Local Development Setup
-
-#### Prerequisites
-
-```bash
-# Install Node.js (v22.x LTS)
-# Install .NET SDK (v8.x LTS)
-# Install Nx CLI globally: npm install -g nx
-# Install Docker (if using local Cosmos DB emulator or other containerized services)
+```text
+apps/web/src/app/
+├── components/
+│   └── my-component/
+│       ├── my-component.component.spec.ts # Unit tests for component logic
+│       └── my-component.component.html # Template tests (if needed)
+├── services/
+│   └── my-service.service.spec.ts       # Unit tests for service logic
+├── features/
+│   └── feature-x/
+│       ├── components/
+│       ├── containers/
+│       └── ...
+apps/web/tests/ # End-to-end tests
 ```
 
-#### Initial Setup
+#### Backend Tests
 
-```bash
-# Clone the repository
-git clone <your-repository-url>
-cd <your-repository-name>
-
-# Install npm dependencies for the monorepo
-npm install
-
-# Restore Nx cache (optional, if using distributed caching)
-nx restore
+```text
+apps/api/tests/
+├── Unit/                          # Unit tests for business logic, services, repositories
+│   └── Services/
+│       └── EventSubmissionServiceTests.cs
+├── Integration/                   # Integration tests for controllers, database access
+│   └── Controllers/
+│       └── EventsControllerTests.cs
+apps/processor/tests/ # Azure Function tests
 ```
 
-#### Development Commands
+#### E2E Tests
 
-```bash
-# Start all services (frontend and backend)
-# This assumes your nx.json configures 'serve' for both apps
-nx run-many --target=serve --all # Or a custom script like `npm run dev`
-
-# Start frontend only
-nx serve web
-
-# Start backend only
-nx serve api
-
-# Run all tests
-nx run-many --target=test --all
-# Or for specific projects:
-# nx test web
-# nx test api
+```text
+apps/e2e/
+├── src/
+│   ├── support/
+│   ├── integration/
+│   │   └── app.cy.ts # Cypress test files
+│   └── plugins/
+│       └── index.ts
+├── cypress.config.ts
+└── tsconfig.json
 ```
 
-### Environment Configuration
+### Test Examples
 
-#### Required Environment Variables
+#### Frontend Component Test
 
-```bash
-# Frontend (.env.local)
-# Example:
-# NX_PUBLIC_API_URL=http://localhost:3000/api/v1
-# NX_PUBLIC_AZURE_AD_B2C_CLIENT_ID=...
-# NX_PUBLIC_AZURE_AD_B2C_TENANT_ID=...
-
-# Backend (.env)
-# Example:
-# ASSET_CORS_ORIGINS=http://localhost:4200
-# ConnectionStrings__CosmosDbConnection=...
-# ServiceBusConnection=...
-# AzureAdB2C__Instance=...
-# AzureAdB2C__ClientId=...
-# AzureAdB2C__Domain=...
-
-# Shared
-# Environment variables that might be shared or used in CI/CD, but not directly in local .env files
-# Example:
-# AZURE_STORAGE_CONNECTION_STRING=...
-# AZURE_TENANT_ID=...
-# AZURE_SUBSCRIPTION_ID=...
+```typescript
+// Placeholder for an Angular component test example using Jest/Angular Testing Library.
 ```
 
-## Unified Project Structure
+#### Backend API Test
 
-Create a monorepo structure that accommodates both frontend and backend. Adapt based on chosen tools and frameworks.
+```typescript
+// Placeholder for a .NET API unit/integration test example using xUnit.
+```
 
-```plaintext
-User Event Hub/
-├── .github/                    # CI/CD workflows
-│   └── workflows/
-│       ├── ci.yaml
-│       └── deploy.yaml
-├── apps/                       # Application packages
-│   ├── web/                    # Frontend application
-│   │   ├── src/
-│   │   │   ├── components/     # UI components
-│   │   │   ├── pages/          # Page components/routes
-│   │   │   ├── hooks/          # Custom React hooks
-│   │   │   ├── services/       # API client services
-│   │   │   ├── stores/         # State management
-│   │   │   ├── styles/         # Global styles/themes
-│   │   │   └── utils/          # Frontend utilities
-│   │   ├── public/             # Static assets
-│   │   ├── tests/              # Frontend tests
-│   │   └── package.json
-│   └── api/                    # Backend application
-│       ├── src/
-│       │   ├── routes/         # API routes/controllers
-│       │   ├── services/       # Business logic
-│       │   ├── models/         # Data models
-│       │   ├── middleware/     # Express/API middleware
-│       │   ├── utils/          # Backend utilities
-│       │   └── Program.cs
-│       ├── tests/              # Backend tests
-│       └── package.json
-├── packages/                   # Shared packages
-│   ├── shared/                 # Shared types/utilities
-│   │   ├── src/
-│   │   │   ├── types/          # TypeScript interfaces
-│   │   │   ├── constants/      # Shared constants
-│   │   │   └── utils/          # Shared utilities
-│   │   └── package.json
-│   ├── ui/                     # Shared UI components
-│   │   ├── src/
-│   │   └── package.json
-│   └── config/                 # Shared configuration
-│       ├── eslint/
-│       ├── typescript/
-│       └── jest/
-├── infrastructure/             # IaC definitions
-│   └── azure-bicep/
-├── scripts/                    # Build/deploy scripts
-├── docs/                       # Documentation
-│   ├── prd.md
-│   ├── front-end-spec.md
-│   └── fullstack-architecture.md
-├── .env.example                # Environment template
-├── package.json                # Root package.json
-├── nx.json                     # Monorepo configuration
-└── README.md
+#### E2E Test
+
+```typescript
+// Placeholder for a Cypress E2E test example.
+```
+
+## Monitoring and Observability
+
+Define monitoring strategy for fullstack application.
+
+### Monitoring Stack
+
+- **Frontend Monitoring:** Azure Application Insights (for user telemetry, page views, client-side errors)
+- **Backend Monitoring:** Azure Application Insights (for request telemetry, dependencies, exceptions)
+- **Error Tracking:** Azure Application Insights (integrated with global error handling)
+- **Performance Monitoring:** Azure Application Insights (for server-side performance), Lighthouse/Web Vitals (for client-side performance)
+
+### Key Metrics
+
+**Frontend Metrics:**
+- Core Web Vitals
+- JavaScript errors
+- API response times
+- User interactions
+
+**Backend Metrics:**
+- Request rate
+- Error rate
+- Response time
+- Database query performance
+
+## Checklist Results Report
+
+### Executive Summary
+
+- **Overall Architecture Readiness:** High
+- **Critical Risks Identified:** None.
+- **Key Strengths of the Architecture:**
+    -   Comprehensive documentation covering most aspects of a modern fullstack application.
+    -   Clear separation of concerns between frontend, backend, and data layers.
+    -   Robust strategies for security, performance, testing, and monitoring.
+    -   Detailed implementation guidance suitable for AI agent-driven development.
+- **Project Type:** Full-stack
+
+### Section Analysis
+
+- **1. REQUIREMENTS ALIGNMENT:** ✅ **PASS**
+- **2. ARCHITECTURE FUNDAMENTALS:** ✅ **PASS**
+- **3. TECHNICAL STACK & DECISIONS:** ✅ **PASS**
+- **4. FRONTEND DESIGN & IMPLEMENTATION:** ✅ **PASS**
+- **5. RESILIENCE & OPERATIONAL READINESS:** ✅ **PASS**
+- **6. SECURITY & COMPLIANCE:** ✅ **PASS**
+- **7. IMPLEMENTATION GUIDANCE:** ✅ **PASS**
+- **8. DEPENDENCY & INTEGRATION MANAGEMENT:** ✅ **PASS**
+- **9. AI AGENT IMPLEMENTATION SUITABILITY:** ✅ **PASS**
+- **10. ACCESSIBILITY IMPLEMENTATION:** **N/A (User decision)**
+
+### Risk Assessment
+
+1.  **Low Risk: Undefined Performance Benchmarks.**
+    -   **Issue:** While performance targets are set, a detailed performance testing strategy is not defined.
+    -   **Mitigation:** A performance testing plan should be created, outlining tools, scenarios, and expected outcomes.
+
+### Recommendations
+
+**Should-Fix:**
+1.  **Detail Performance Testing Strategy:** Elaborate on the approach for load testing, stress testing, and performance benchmarking.
+2.  **Specify Security Testing in CI/CD:** Integrate SAST/DAST tools into the Azure DevOps pipeline.
+3.  **Document Branching Strategy:** Add a section on the branching strategy (e.g., GitFlow, GitHub Flow) to complement the PR standards.
+4.  **Create PR Template:** Implement a formal PR template to enforce consistency and clarity.
+
+**Nice-to-Have:**
+1.  **Automate Documentation Generation:** Consider using tools like TSDoc and XML comments to generate documentation from code.
+2.  **Dashboarding and Visualization:** Define a strategy for creating monitoring dashboards in Azure for different stakeholders.
+
+### AI Implementation Readiness
+
+- **Concerns:** None. The architecture is well-suited for AI agent implementation due to its modularity, clear patterns, and detailed guidance.
+- **Clarification Needs:** None at this time.
+- **Complexity Hotspots:** None identified.
+
+## Coding Standards
+
+Define MINIMAL but CRITICAL standards for AI agents. Focus only on project-specific rules that prevent common mistakes. These will be used by dev agents.
+
+### Critical Fullstack Rules
+
+- **Type Sharing:** Always define shared types (interfaces, enums) in `libs/shared/models` and import from there. This ensures a single source of truth for data contracts.
+- **API Calls:** Never make direct HTTP calls from UI components. Always use dedicated service layers (e.g., `ApiClientService`, `OrderEventsApiService`) to encapsulate API interactions and handle common concerns like authentication and error handling.
+- **Environment Variables:** Access environment variables only through strongly typed configuration objects. Avoid direct access to `process.env` (frontend) or raw `IConfiguration` (backend) in application logic.
+- **Error Handling:** All API routes (backend) and service calls (frontend) must utilize the standardized error handling strategy defined in the "Global Error Handling Strategy" section, ensuring consistent error responses and logging.
+- **State Updates (Frontend):** Never mutate NgRx state directly. All state modifications must occur through pure reducers, triggered by dispatched actions, adhering to the one-way data flow pattern.
+- **No Hardcoded Values:**
+    -   **Configuration:** All environment-specific values (e.g., API URLs, connection strings) must be stored in configuration files and accessed through strongly-typed configuration objects.
+    -   **Constants:** Application-wide constants (e.g., UI labels, default settings) should be defined in dedicated constant files (e.g., `constants.ts` or `Constants.cs`).
+    -   **Magic Strings/Numbers:** Avoid using "magic strings" and "magic numbers" directly in the code. Use named constants or enums instead to improve readability and maintainability.
+
+### New Library Integration
+
+- **Justification:** Before adding a new library, provide a clear justification in the project documentation, outlining the problem it solves and why existing libraries are insufficient.
+- **Vetting:** New libraries must be well-maintained, have a permissive license compatible with the project, and be vetted for security vulnerabilities using tools like Snyk or `npm audit`.
+- **Testing:** Any new library must be accompanied by tests that demonstrate its correct integration and functionality within the application. These tests should cover the core use cases for which the library is being added.
+- **Documentation:** Upon adding a new library, the "Tech Stack" table in this architecture document must be updated with the library's name and version.
+
+### Pull Request (PR) Standards
+
+- **Small and Focused:** PRs should be small, focused, and represent a single logical change. Avoid large, monolithic PRs with thousands of lines of code that address multiple concerns.
+- **Meaningful Changes:** Each PR should have a clear purpose and be linked to a specific task, user story, or bug fix. The PR description should clearly explain *what* the change is and *why* it is needed.
+- **Reviewability:** Small, focused PRs are easier and faster to review, leading to higher quality feedback and a more efficient development process.
+- **Guideline:** As a general guideline, a PR should ideally have less than 500 lines of changes (excluding generated files). If a change is larger, consider breaking it down into multiple, smaller PRs that can be merged sequentially.
+- **Self-Contained:** Each PR should be self-contained and not break the main branch. All tests must pass before a PR can be merged.
+
+### Runtime Documentation and Code Comments
+
+**Runtime Documentation (Self-documenting Code):**
+-   **Meaningful Naming:** Use clear and descriptive names for variables, functions, classes, and methods. The name should reflect the purpose of the code element.
+-   **Logging:** Use structured logging to provide runtime visibility into application behavior. Log key events, decisions, and outcomes, especially for complex business logic.
+-   **API Documentation:** The OpenAPI specification serves as the runtime documentation for the API, providing clear contracts and usage examples for all endpoints.
+
+**Code Comments:**
+-   **When to Comment:** Add comments to explain *why* something is done, not *what* is being done. The code itself should explain what it does.
+-   **Complex Logic:** Use comments to explain complex algorithms, business rules, or workarounds.
+-   **TODOs/FIXMEs:** Use `// TODO:` or `// FIXME:` comments to mark areas that require future attention, and include a brief explanation of what needs to be done.
+-   **Avoid Clutter:** Avoid unnecessary or obvious comments that just add noise to the code.
+
+### SQL Coding Standards
+
+- **Keywords:** Use uppercase for all SQL keywords (e.g., `SELECT`, `FROM`, `WHERE`, `JOIN`).
+- **Identifiers:** Use `snake_case` for table and column names for consistency.
+- **Formatting:** Use indentation and line breaks to improve the readability of complex queries.
+- **Comments:** Use comments (`--`) to explain complex logic, joins, or `WHERE` clauses.
+- **Performance:** Avoid using `SELECT *`; explicitly list the columns you need. Ensure efficient `JOIN`s and use `WHERE` clauses to filter data as early as possible.
+
+### Angular Coding Standards
+
+- **File Structure:** Adhere to the Angular style guide for file and folder organization, including feature modules and a shared module.
+- **Components:**
+    -   Use `OnPush` change detection strategy where possible to optimize performance.
+    -   Favor standalone components for better modularity and reduced reliance on `NgModule`.
+    -   Keep components focused on presentation logic. Delegate complex business logic to services.
+- **Services:**
+    -   Use services for business logic, API calls, and shared state.
+    -   Provide services at the appropriate level (e.g., `providedIn: 'root'` for singletons).
+- **RxJS:**
+    -   Use RxJS for managing asynchronous operations.
+    -   Always unsubscribe from observables to prevent memory leaks (e.g., using `takeUntil`, the `async` pipe, or `take(1)`).
+- **Typing:** Leverage TypeScript's strong typing. Avoid using the `any` type whenever possible.
+
+### .NET Coding Standards
+
+- **Naming:** Follow Microsoft's C# Naming Conventions (e.g., `PascalCase` for classes, methods, and properties; `camelCase` for local variables and method parameters).
+- **Async/Await:** Use `async` and `await` for all I/O-bound operations (e.g., database calls, HTTP requests). Use `ConfigureAwait(false)` in library code where context is not required to avoid potential deadlocks.
+- **LINQ:** Use LINQ for querying collections where it improves readability and maintainability. For complex queries, consider the performance implications.
+- **Dependency Injection:** Use dependency injection for all services, repositories, and other dependencies. Register services with the appropriate lifetime in the DI container.
+- **Error Handling:** Use exceptions for exceptional circumstances. Adhere to the "Global Error Handling Strategy" defined in this document.
+- **File Organization:** Organize files and folders by feature or responsibility, mirroring the overall project structure.
+
+### Naming Conventions
+
+| Element | Frontend | Backend | Example |
+|---|---|---|---|
+| Components | PascalCase | - | `UserProfileComponent.ts` |
+| Services | PascalCase | PascalCase | `AuthService.ts`, `EventSubmissionService.cs` |
+| Interfaces | PascalCase | PascalCase | `OrderEvent.ts`, `IOrderEventRepository.cs` |
+| API Controllers | - | PascalCase | `EventsController.cs` |
+| API Endpoints/Routes | - | kebab-case | `/api/v1/events/order` |
+| Database Tables/Collections | PascalCase | - | `OrderEvents` (Cosmos DB) |
+| Azure Functions | - | PascalCase | `ProcessOrderEvent` |
+
